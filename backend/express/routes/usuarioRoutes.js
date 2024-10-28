@@ -3,9 +3,9 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 
 // Ruta para registrar un nuevo usuario
-router.post('/register', usuarioController.registrarUsuario);
+router.post('/', usuarioController.crearUsuario);
 
 // Ruta para iniciar sesión
-router.post('/login', usuarioController.loginUsuario);
+router.post('/:id', usuarioController.obtenerUsuario);
 
 module.exports = router;

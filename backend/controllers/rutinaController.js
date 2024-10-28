@@ -1,44 +1,43 @@
 const Rutina = require('../sequelize/models/rutinaModel');
-const Ejercicio = require('../sequelize/models/ejercicioModel');
 
-// Obtener todas las rutinas del usuario autenticado
-exports.obtenerRutinasUsuario = async (req, res) => {
+// Obtener todas las rutinas
+exports.obtenerRutinas = async (req, res) => {
     try {
-        const rutinas = await Rutina.findAll({ where: { id_usuario: req.usuarioId } });
-        res.status(200).json({ rutinas });
+        const rutinas = await Rutina.findAll();
+        res.status(200).json(rutinas);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener las rutinas del usuario' });
+        res.status(500).json({ error: 'Error al obtener las rutinas' });
     }
 };
 
-// Obtener una rutina específica del usuario
-exports.obtenerRutinaPorId = async (req, res) => {
+// Crear una nueva rutina
+exports.crearRutina = async (req, res) => {
     try {
-        const { rutinaId } = req.params;
-        const rutina = await Rutina.findOne({ where: { id: rutinaId, id_usuario: req.usuarioId } });
-
-        if (!rutina) {
-            return res.status(404).json({ error: 'Rutina no encontrada' });
-        }
-
-        res.status(200).json({ rutina });
+        const rutina = await Rutina.create(req.body);
+        res.status(201).json(rutina);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener la rutina' });
+        res.status(500).json({ error: 'Error al crear la rutina' });
     }
 };
 
-// Obtener todos los ejercicios de una rutina específica
-exports.obtenerEjerciciosRutina = async (req, res) => {
+// Actualizar una rutina específica
+exports.actualizarRutina = async (req, res) => {
     try {
         const { rutinaId } = req.params;
-        const ejercicios = await Ejercicio.findAll({ where: { id_rutina: rutinaId } });
-
-        if (!ejercicios.length) {
-            return res.status(404).json({ error: 'No se encontraron ejercicios para esta rutina' });
-        }
-
-        res.status(200).json({ ejercicios });
+        const rutina = await Rutina.update(req.body, { where: { id: rutinaId } });
+        res.status(200).json(rutina);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener los ejercicios de la rutina' });
+        res.status(500).json({ error: 'Error al actualizar la rutina' });
+    }
+};
+
+// Eliminar una rutina específica
+exports.eliminarRutina = async (req, res) => {
+    try {
+        const { rutinaId } = req.params;
+        await Rutina.destroy({ where: { id: rutinaId } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Error al eliminar la rutina' });
     }
 };
