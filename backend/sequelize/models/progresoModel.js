@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Informe = require('./informe');
+const Informe = require('./informeModel');
 
 const Progreso = sequelize.define('Progreso', {
   id_progreso: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

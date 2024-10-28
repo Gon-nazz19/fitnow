@@ -1,8 +1,8 @@
-const Usuario = require('./usuario');
-const Rutina = require('./rutina');
-const Ejercicio = require('./ejercicio');
-const Informe = require('./informe');
-const Progreso = require('./progreso');
+const Usuario = require('./usuarioModel');
+const Rutina = require('./rutinaModel');
+const Ejercicio = require('./ejercicioModel');
+const Informe = require('./informeModel');
+const Progreso = require('./progresoModel');
 
 // Relación entre Usuario y Rutina
 Usuario.hasMany(Rutina, { foreignKey: 'id_usuario' });

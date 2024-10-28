@@ -1,21 +1,30 @@
-const express = require('express');
-const sequelize = require('./config/database');
-const { Usuario, Rutina, Ejercicio, Informe, Progreso } = require('./models');
+const app = require('./express/app');
+const sequelize = require('./sequelize');
+const PORT = 8080;
 
-const app = express();
-app.use(express.json());
+async function assertDatabaseConnectionOk() {
+	console.log(`Checking database connection...`);
+	try {
+		await sequelize.authenticate();
+		console.log('Database connection OK!');
+	} catch (error) {
+		console.log('Unable to connect to the database:');
+		console.log(error.message);
+		process.exit(1);
+	}
+}
 
-sequelize.sync({ force: false }) // Cambia a 'true' solo si deseas sobrescribir las tablas existentes
-  .then(() => {
-    console.log('Base de datos y tablas sincronizadas');
-  })
-  .catch(err => console.log('Error al sincronizar la base de datos:', err));
+async function init() {
+    await assertDatabaseConnectionOk();
 
-// Rutas y otros middlewares
+    console.log('Sincronizando la base de datos...');
+    await sequelize.sync({ alter: true }); // Sincroniza los modelos,  alter:true es importante en producción!
+    console.log('Base de datos sincronizada.');
 
-app.listen(5000, () => {
-  console.log('Servidor corriendo en el puerto 5000');
-});
+    app.listen(PORT, () => {
+        console.log(`Servidor Express escuchando en el puerto ${PORT}`);
+    });
+}
 
 
-
+init();

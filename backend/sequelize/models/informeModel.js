@@ -1,8 +1,8 @@
 // backend/models/Informe.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Rutina = require('./rutina');
-const Ejercicio = require('./ejercicio');
+const Rutina = require('./rutinaModel');
+const Ejercicio = require('./ejercicioModel');
 
 const Informe = sequelize.define('Informe', {
   id_informe: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

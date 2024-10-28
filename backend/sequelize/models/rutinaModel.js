@@ -1,7 +1,7 @@
 // backend/models/rutina.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const usuario = require('./usuario');
+const usuario = require('./usuarioModel');
 
 const rutina = sequelize.define('rutina', {
   id_rutina: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
