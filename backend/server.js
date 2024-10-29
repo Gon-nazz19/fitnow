@@ -1,5 +1,7 @@
-const app = require('./app');
 const sequelize = require('./sequelize');
+const express = require('express');
+const app = express();
+const db = require('./sequelize/index');
 
 // Importar las rutas según tu estructura de archivos
 const usuarioRoutes = require('./routes/usuarioRoutes');
@@ -34,7 +36,5 @@ async function iniciarServidor() {
         console.error('Error al sincronizar la base de datos:', error);
     }
 }
-
-
 
 init();

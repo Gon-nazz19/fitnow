@@ -6,6 +6,6 @@ const usuarioController = require('../controllers/usuarioController');
 router.post('/', usuarioController.crearUsuario);
 
 // Ruta para iniciar sesión
-router.post('/:id', usuarioController.obtenerUsuario);
+router.post('/:id', usuarioController.obtenerUsuario); // Cambiar (se filtra por nombre y contraseña)
 
 module.exports = router;

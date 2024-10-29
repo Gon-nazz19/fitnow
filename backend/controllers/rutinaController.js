@@ -20,7 +20,7 @@ exports.crearRutina = async (req, res) => {
     }
 };
 
-// Actualizar una rutina específica
+// Actualizar una rutina específica (Ver si de deja o lo mandamos al joraca)
 exports.actualizarRutina = async (req, res) => {
     try {
         const { rutinaId } = req.params;
@@ -31,7 +31,7 @@ exports.actualizarRutina = async (req, res) => {
     }
 };
 
-// Eliminar una rutina específica
+// Eliminar una rutina específica (Ver si de deja o lo mandamos de sabatico)
 exports.eliminarRutina = async (req, res) => {
     try {
         const { rutinaId } = req.params;
