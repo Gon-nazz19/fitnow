@@ -1,6 +1,5 @@
 // backend/models/Informe.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
 const Rutina = require('./rutinaModel');
 const Ejercicio = require('./ejercicioModel');
 

@@ -1,15 +1,15 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
 
-const Ejercicio = sequelize.define('Ejercicio', {
-  id_ejercicio: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  nombre: { type: DataTypes.STRING, allowNull: false },
-  descripcion: { type: DataTypes.TEXT },
-  grupo_muscular: { type: DataTypes.STRING },
-  url_video_imagen: { type: DataTypes.STRING }
-}, {
-  tableName: 'Ejercicio',
-  timestamps: false,
-});
-
-module.exports = Ejercicio;
+module.exports = (sequelize) => {
+  sequelize.define('usuarioModel',{
+    id_ejercicio: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    nombre:DataTypes.STRING, 
+    descripcion: DataTypes.STRING,
+    grupomuscular:  DataTypes.STRING,
+    url_video_imagen:DataTypes.STRING,
+  });
+}

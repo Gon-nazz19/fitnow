@@ -6,7 +6,7 @@ const { applyExtraSetup } = require('./extra-setup');
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
-	storage: 'db.sqlite',
+	storage: '../db.sqlite',
 	logQueryParameters: true,
 	benchmark: true
 });
