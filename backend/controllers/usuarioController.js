@@ -3,7 +3,7 @@ const Usuario = require('../sequelize/models/usuarioModel');
 // Obtener un usuario
 exports.obtenerUsuario = async (req, res) => {
     try {
-        const usuario = await Usuario.findByPk(req.params.id);
+        const usuario = await Usuario.findByPk(req.params.id); // Modificar (filtrar por usuario y contraseña)
         if (!usuario) {
             return res.status(404).json({ error: 'Usuario no encontrado' });
         }

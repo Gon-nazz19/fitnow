@@ -1,6 +1,8 @@
-const Progreso = require('../sequelize/models/progresoModel');
+const Progreso = require('../sequelize/models/informeModel');
 
-// Registrar peso de un ejercicio
+// Pendiente de continuar
+
+// Registrar informe
 exports.registrarProgreso = async (req, res) => {
     try {
         const progreso = await Progreso.create(req.body);

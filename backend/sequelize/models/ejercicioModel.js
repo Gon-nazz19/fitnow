@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('usuarioModel',{
+  sequelize.define('ejercicio',{
     id_ejercicio: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -12,4 +12,4 @@ module.exports = (sequelize) => {
     grupomuscular:  DataTypes.STRING,
     url_video_imagen:DataTypes.STRING,
   });
-}
+} // Ver si usamos api o esto
