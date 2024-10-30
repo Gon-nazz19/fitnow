@@ -3,6 +3,7 @@ const router = express.Router();
 const ejercicioController = require('../controllers/ejercicioController');
 
 router.get('/', ejercicioController.listarEjercicios); // Listar todos los ejercicios
+router.get('/', ejercicioController.obtenerEjercicioPorNombre); // Filtrar ejercicios por nombre
 router.put('/:ejercicioId', ejercicioController.actualizarEjercicio); // Actualizar un ejercicio específico
 
 module.exports = router;

@@ -2,6 +2,7 @@ const sequelize = require('./sequelize');
 const express = require('express');
 const app = express();
 const db = require('./sequelize/index');
+const bodyParser = require('body-parser'); 
 
 // Importar las rutas según tu estructura de archivos
 const usuarioRoutes = require('./routes/usuarioRoutes');
@@ -10,8 +11,6 @@ const ejercicioRoutes = require('./routes/ejercicioRoutes');
 const informeRoutes = require('./routes/informeRoutes');
 const progresoRoutes = require('./routes/progresoRoutes');
 
-//configuracion base de datos
-const PORT = 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +24,7 @@ app.use('/api/progresos', progresoRoutes);
 
 async function iniciarServidor() {
     try {
-        await db.sync(); // Creates the tables if they do not exist
+        await db.sync(); // Crea las tablas si no existen
         console.log('Modelos sincronizados con la base de datos.');
 
         const PORT = process.env.PORT || 3000;
@@ -37,4 +36,5 @@ async function iniciarServidor() {
     }
 }
 
-init();
+// Cambia `init()` a `iniciarServidor()`
+iniciarServidor();
