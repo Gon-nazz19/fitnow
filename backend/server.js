@@ -1,8 +1,7 @@
-const sequelize = require('./sequelize');
+const { sequelize } = require('./sequelize'); // Importamos la instancia de Sequelize
 const express = require('express');
 const app = express();
-const db = require('./sequelize/index');
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 
 // Importar las rutas según tu estructura de archivos
 const usuarioRoutes = require('./routes/usuarioRoutes');
@@ -11,7 +10,7 @@ const ejercicioRoutes = require('./routes/ejercicioRoutes');
 const informeRoutes = require('./routes/informeRoutes');
 const progresoRoutes = require('./routes/progresoRoutes');
 
-
+// Middlewares para procesar el body de las solicitudes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -22,9 +21,10 @@ app.use('/api/ejercicios', ejercicioRoutes);
 app.use('/api/informes', informeRoutes);
 app.use('/api/progresos', progresoRoutes);
 
+// Función para iniciar el servidor y sincronizar la base de datos
 async function iniciarServidor() {
     try {
-        await db.sync(); // Crea las tablas si no existen
+        await sequelize.sync(); // Sincroniza las tablas con la base de datos
         console.log('Modelos sincronizados con la base de datos.');
 
         const PORT = process.env.PORT || 3000;
@@ -36,5 +36,5 @@ async function iniciarServidor() {
     }
 }
 
-// Cambia `init()` a `iniciarServidor()`
+// Llamamos a la función para iniciar el servidor
 iniciarServidor();
