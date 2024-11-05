@@ -8,7 +8,6 @@ exports.obtenerRutinasPorUsuario = async (req, res) => {
         const rutinas = await Rutina.findAll({ where: { id_usuario: idUsuario } });
         res.status(200).json(rutinas);
     } catch (error) {
-        console.error('Error al obtener las rutinas:', error);
         res.status(500).json({ error: 'Error al obtener las rutinas' });
     }
 };
@@ -19,12 +18,8 @@ exports.obtenerNombreRutina = async (req, res) => {
         const rutina = await Rutina.findByPk(req.params.id, {
             attributes: ['nombre'], // Seleccionar solo el nombre de la rutina
         });
-        if (!rutina) {
-            return res.status(404).json({ error: 'Rutina no encontrada' });
-        }
-        res.status(200).json({ nombre: rutina.nombre });
+        res.status(200).json({ nombre: rutina ? rutina.nombre : null });
     } catch (error) {
-        console.error('Error al obtener el nombre de la rutina:', error);
         res.status(500).json({ error: 'Error al obtener el nombre de la rutina' });
     }
 };
@@ -35,7 +30,6 @@ exports.crearRutina = async (req, res) => {
         const rutina = await Rutina.create(req.body);
         res.status(201).json(rutina);
     } catch (error) {
-        console.error('Error al crear la rutina:', error);
         res.status(500).json({ error: 'Error al crear la rutina' });
     }
 };

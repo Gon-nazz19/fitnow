@@ -36,5 +36,5 @@ async function iniciarServidor() {
     }
 }
 
-// Iniciar el servidor
+// Llamamos a la función para iniciar el servidor
 iniciarServidor();
