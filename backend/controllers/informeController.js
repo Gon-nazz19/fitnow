@@ -1,5 +1,28 @@
-const { where } = require('sequelize');
-const Informe = require('../sequelize/models/informeModel');
+const { models } = require('../sequelize');
+const Informe = models.informe;
+const { DataTypes } = require('sequelize');
+const Rutina = require('./rutinaModel');
+const Ejercicio = require('./ejercicioModel');
+
+module.exports = (sequelize) => {
+  sequelize.define('informe', {
+    id_informe: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    id_rutina: { 
+      type: DataTypes.INTEGER, 
+      references: { model: Rutina, key: 'id_rutina' } 
+    },
+    id_ejercicio: { 
+      type: DataTypes.INTEGER, 
+      references: { model: Ejercicio, key: 'id_ejercicio' } 
+    },
+    series: { type: DataTypes.INTEGER },
+    repeticion: { type: DataTypes.INTEGER }
+  });
+}
 
 // Obtener informes filtrando por rutina
 exports.obtenerInformesPorIdRutina = async (req, res) => {
@@ -16,6 +39,7 @@ exports.obtenerInformesPorIdRutina = async (req, res) => {
 
         res.status(200).json(informes);
     } catch (error) {
+        console.error('Error al obtener los informes:', error);
         res.status(500).json({ error: 'Error al obtener los informes' });
     }
 };
@@ -34,27 +58,7 @@ exports.obtenerInformePorId = async (req, res) => {
 
         res.status(200).json(informe);
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener el informe' });
+        console.error('Error al obtener el informe:', error);
+        res.status (500).json({ error: 'Error al obtener el informe' });
     }
 };
-
-// Crear un nuevo informe
-exports.crearInforme = async (req, res) => {
-    try {
-        const informe = await informeModel.create(req.body);
-        res.status(201).json(informe);
-    } catch (error) {
-        res.status(500).json({ error: 'Error al crear el informe' });
-    }
-};
-
-// Eliminar un informe especifico (Ver si se deja o lo mandamos a narnia)
-/*exports.eliminarInforme = async (req, res) => {
-    try {
-        const { informeId } = req.params;
-        await Informe.destroy({ where: { id: informeId } });
-        res.status(204).send();
-    } catch (error) {
-        res.status 500).json({ error: 'Error al eliminar el informe' });
-    }
-};*/
