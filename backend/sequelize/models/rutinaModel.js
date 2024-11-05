@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const Usuario = require('./usuarioModel');
 
 module.exports = (sequelize) => {
   sequelize.define('rutina',{
@@ -9,6 +10,6 @@ module.exports = (sequelize) => {
     },
     nombre: DataTypes.STRING, 
     descripcion: DataTypes.STRING,
-    id_usuario: DataTypes.INTEGER,
+    id_usuario: { type: DataTypes.INTEGER, references: { model: Usuario, key: 'id_usuario' } }
   });
 }

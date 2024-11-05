@@ -1,25 +1,24 @@
-const Rutina = require('../sequelize/models/rutinaModel');
+const { models } = require('../sequelize'); // Importamos los modelos desde sequelize/index.js
+const Rutina = models.rutina; // Obtenemos el modelo 'rutina'
 
-// Obtener todas las rutinas por id de usuario
+// Obtener todas las rutinas por ID de usuario
 exports.obtenerRutinasPorUsuario = async (req, res) => {
     try {
-        const IdUsuario = req.params;
-        const rutinas = await Rutina.findAll(
-            req.body, {where: {id_usuario: IdUsuario}}
-        );
+        const idUsuario = req.params.idUsuario;
+        const rutinas = await Rutina.findAll({ where: { id_usuario: idUsuario } });
         res.status(200).json(rutinas);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener las rutinas' });
     }
 };
 
-// Obtener nombre de la rutina
+// Obtener solo el nombre de una rutina por ID
 exports.obtenerNombreRutina = async (req, res) => {
     try {
         const rutina = await Rutina.findByPk(req.params.id, {
-            attributes: ['nombre'] // Seleccionar solo el nombre de la rutina
+            attributes: ['nombre'], // Seleccionar solo el nombre de la rutina
         });
-        res.status(200).json({ nombre: rutina.nombre });
+        res.status(200).json({ nombre: rutina ? rutina.nombre : null });
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener el nombre de la rutina' });
     }
@@ -38,33 +37,39 @@ exports.crearRutina = async (req, res) => {
 // Obtener todas las rutinas por nombre
 exports.obtenerRutinasPorNombre = async (req, res) => {
     try {
-        const nombreABuscar = req.params;
-        const rutinas = await Rutina.findAll(
-            req.body, {where: {nombre: nombreABuscar}}
-        );
+        const nombreABuscar = req.params.nombre;
+        const rutinas = await Rutina.findAll({ where: { nombre: nombreABuscar } });
         res.status(200).json(rutinas);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener las rutinas' });
     }
 };
-// Actualizar una rutina específica (Ver si se deja o lo mandamos al joraca)
-/*exports.actualizarRutina = async (req, res) => {
+
+// (Opcional) Actualizar una rutina específica
+/*
+exports.actualizarRutina = async (req, res) => {
     try {
-        const { rutinaId } = req.params;
-        const rutina = await Rutina.update(req.body, { where: { id: rutinaId } });
+        const rutinaId = req.params.id;
+        const [updated] = await Rutina.update(req.body, { where: { id: rutinaId } });
+        if (!updated) return res.status(404).json({ error: 'Rutina no encontrada' });
+        const rutina = await Rutina.findByPk(rutinaId);
         res.status(200).json(rutina);
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar la rutina' });
     }
-};*/
+};
+*/
 
-// Eliminar una rutina específica (Ver si se deja o lo mandamos de sabatico)
-/*exports.eliminarRutina = async (req, res) => {
+// (Opcional) Eliminar una rutina específica
+/*
+exports.eliminarRutina = async (req, res) => {
     try {
-        const { rutinaId } = req.params;
-        await Rutina.destroy({ where: { id: rutinaId } });
+        const rutinaId = req.params.id;
+        const deleted = await Rutina.destroy({ where: { id: rutinaId } });
+        if (!deleted) return res.status(404).json({ error: 'Rutina no encontrada' });
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar la rutina' });
     }
-};*/
+};
+*/
