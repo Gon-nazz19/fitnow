@@ -7,6 +7,7 @@ exports.registrarProgreso = async (req, res) => {
         const progreso = await Progreso.create(req.body);
         res.status(201).json(progreso);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Error al registrar el progreso' });
     }
 };
