@@ -1,29 +1,31 @@
 const { Sequelize } = require('sequelize');
 const { applyExtraSetup } = require('./extra-setup');
-
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: '../db.sqlite',
-  logQueryParameters: true,
-  benchmark: true,
+    dialect: 'sqlite',
+    storage: 'db.sqlite'
 });
 
 const modelDefiners = [
-  require('./models/ejercicioModel'),
-  require('./models/informeModel'),
-  require('./models/progresoModel'),
-  require('./models/rutinaModel'),
-  require('./models/usuarioModel'),
+    require('./models/usuarioModel'),
+    require('./models/ejercicioModel'),
+    require('./models/informeModel'),
+    require('./models/progresoModel'),
+    require('./models/rutinaModel')
 ];
 
 for (const modelDefiner of modelDefiners) {
-  modelDefiner(sequelize);
+    modelDefiner(sequelize);
 }
 
 applyExtraSetup(sequelize);
 
-// Exportamos tanto sequelize como los modelos
-module.exports = {
-  sequelize,
-  models: sequelize.models,
-};
+sequelize.sync({ force: false }) // Usa { force: false } para evitar eliminar y recrear las tablas
+    .then(() => {
+        console.log('Database & tables created!');
+    })
+    .catch(err => {
+        console.error('Unable to create tables, shutting down...', err);
+        process.exit(1);
+    });
+
+module.exports = sequelize;

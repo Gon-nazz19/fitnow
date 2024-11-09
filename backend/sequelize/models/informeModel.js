@@ -1,27 +1,21 @@
 const { DataTypes } = require('sequelize');
-const Rutina = require('./rutinaModel');
-const Ejercicio = require('./ejercicioModel');
 
 module.exports = (sequelize) => {
-  sequelize.define('informe',{
+  sequelize.define('informe', {
     id_informe: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-
     id_rutina: { 
       type: DataTypes.INTEGER, 
-      references: { model: Rutina, key: 'id_rutina' } 
+      references: { model: 'rutinas', key: 'id_rutina' } 
     },
-
     id_ejercicio: { 
       type: DataTypes.INTEGER, 
-      references: { model: Ejercicio, key: 'id_ejercicio' } 
+      references: { model: 'ejercicios', key: 'id_ejercicio' } 
     },
-
     series: { type: DataTypes.INTEGER },
-    
     repeticion: { type: DataTypes.INTEGER }
   });
-} 
+}

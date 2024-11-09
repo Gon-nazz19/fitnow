@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize');
-const Informe = require('./informeModel');
 
 module.exports = (sequelize) => {
-  sequelize.define('progreso',{
+  sequelize.define('progreso', {
     id_progreso: { 
       type: DataTypes.INTEGER, 
       primaryKey: true, 
@@ -10,6 +9,9 @@ module.exports = (sequelize) => {
     },
     fecha: { type: DataTypes.DATE, allowNull: false },
     peso: { type: DataTypes.FLOAT },
-    id_informe: { type: DataTypes.INTEGER, references: { model: Informe, key: 'id_informe' } }
+    id_informe: { 
+      type: DataTypes.INTEGER, 
+      references: { model: 'informes', key: 'id_informe' } 
+    }
   });
-} 
+}

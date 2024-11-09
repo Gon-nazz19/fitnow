@@ -1,4 +1,4 @@
-const { sequelize } = require('./sequelize'); // Importamos la instancia de Sequelize
+const  sequelize = require('./sequelize'); // Importamos la instancia de Sequelize
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
