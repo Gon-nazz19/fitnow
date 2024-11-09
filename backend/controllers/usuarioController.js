@@ -17,10 +17,10 @@ exports.obtenerUsuario = async (req, res) => {
   }
 };
 
-// Obtener un usuario por nombre y contraseña
+// Obtener un usuario por email y contraseña
 exports.obtenerUsuarioPorEmailYContraseña = async (req, res) => {
   try {
-    const { email, contraseña } = req.body; // Obtener email y contraseña del cuerpo de la solicitud
+    const { email, contraseña } = req.body;
 
     const usuario = await Usuario.findOne({
       where: {
@@ -30,10 +30,10 @@ exports.obtenerUsuarioPorEmailYContraseña = async (req, res) => {
     });
 
     if (!usuario) {
-      return res.status(404).json({ error: 'Usuario no encontrado o credenciales incorrectas' });
+      return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
     }
 
-    res.status(200).json(usuario);
+    res.status(200).json(usuario); // Si el usuario existe, responde con los datos del usuario
   } catch (error) {
     console.error('Error al autenticar el usuario:', error);
     res.status(500).json({ error: 'Error al autenticar el usuario' });
