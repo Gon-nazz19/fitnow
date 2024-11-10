@@ -6,7 +6,7 @@ const usuarioController = require('../controllers/usuarioController');
 router.post('/', usuarioController.crearUsuario);
 
 // Ruta para obtener un usuario por nombre y contraseña
-router.get('/login', usuarioController.obtenerUsuarioPorEmailYContraseña);
+router.post('/login', usuarioController.obtenerUsuarioPorEmailYcontrasena);
 
 // Ruta para iniciar sesión
 router.get('/:id', usuarioController.obtenerUsuario); // Posiblemente es fletable

@@ -17,15 +17,19 @@ exports.obtenerUsuario = async (req, res) => {
   }
 };
 
-// Obtener un usuario por email y contraseña
-exports.obtenerUsuarioPorEmailYContraseña = async (req, res) => {
+// Obtener un usuario por email y contrasena
+exports.obtenerUsuarioPorEmailYcontrasena = async (req, res) => {
   try {
-    const { email, contraseña } = req.body;
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email y contraseña son obligatorios.' });
+    }
 
     const usuario = await Usuario.findOne({
       where: {
         email: email,
-        contraseña: contraseña
+        contrasena: password
       }
     });
 
@@ -38,12 +42,11 @@ exports.obtenerUsuarioPorEmailYContraseña = async (req, res) => {
     console.error('Error al autenticar el usuario:', error);
     res.status(500).json({ error: 'Error al autenticar el usuario' });
   }
-};
-
+}
 // Crear un nuevo usuario
 exports.crearUsuario = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log(req.body); // Verifica que los datos se reciben correctamente
     const usuario = await Usuario.create(req.body); // Crear usuario con los datos recibidos
     res.status(201).json(usuario);
   } catch (error) {
