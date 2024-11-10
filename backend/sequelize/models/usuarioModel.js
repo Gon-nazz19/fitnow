@@ -13,8 +13,6 @@ module.exports = (sequelize) => {
     peso: DataTypes.FLOAT,
     altura: DataTypes.FLOAT,
     sexo: DataTypes.STRING,
-    contrasena: {
-     type:  DataTypes.STRING, 
-      allowNull: false}
+    contraseña: DataTypes.STRING, 
   });
 };
