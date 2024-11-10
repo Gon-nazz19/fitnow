@@ -9,7 +9,8 @@ router.post('/', usuarioController.crearUsuario);
 router.get('/login', usuarioController.obtenerUsuarioPorEmailYContraseña);
 
 // Ruta para iniciar sesión
-router.get('/:id', usuarioController.obtenerUsuario); // Posiblemente es fletable
+router.post('/login', usuarioController.iniciarSesion);
+
 
 // Ruta para obtener solo el nombre de un usuario por ID
 router.get('/:id/nombre', usuarioController.obtenerNombreUsuario);
