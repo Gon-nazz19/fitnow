@@ -14,4 +14,4 @@ module.exports = (sequelize) => {
       references: { model: 'informes', key: 'id_informe' } 
     }
   });
-}
+};

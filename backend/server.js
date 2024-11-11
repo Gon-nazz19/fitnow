@@ -1,4 +1,3 @@
-// backend/server.js
 const sequelize = require('./sequelize'); // Importamos la instancia de Sequelize
 const express = require('express');
 const cors = require('cors'); // Importa el middleware CORS

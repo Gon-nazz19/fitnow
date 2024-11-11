@@ -45,3 +45,16 @@ exports.obtenerEjercicioPorNombre = async (req, res) => {
         res.status(500).json({ error: 'No se encontró ningún ejercicio con este nombre' });
     }
 };
+
+exports.obtenerEjercicioPorId = async (req, res) => {
+    try {
+        const idEjercicio = req.params.idEjercicio;
+        const ejercicio = await Ejercicio.findByPk(idEjercicio);
+        if (!ejercicio) {
+            return res.status(404).json({ error: 'Ejercicio no encontrado' });
+        }
+        res.status(200).json(ejercicio);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener el ejercicio' });
+    }
+};
