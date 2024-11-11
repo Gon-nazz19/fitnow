@@ -9,5 +9,5 @@ router.post('/', rutinaController.crearRutina); // Crear una nueva rutina
 
 // router.put('/:rutinaId', rutinaController.actualizarRutina); // Actualizar una rutina
 // router.delete('/:rutinaId', rutinaController.eliminarRutina); // Eliminar una rutina
-
+ 
 module.exports = router;
