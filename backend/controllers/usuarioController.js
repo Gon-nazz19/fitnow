@@ -42,7 +42,7 @@ exports.obtenerUsuarioPorEmailYcontrasena = async (req, res) => {
     console.error('Error al autenticar el usuario:', error);
     res.status(500).json({ error: 'Error al autenticar el usuario' });
   }
-}
+};
 // Crear un nuevo usuario
 exports.crearUsuario = async (req, res) => {
   try {

@@ -1,3 +1,4 @@
+// backend/server.js
 const sequelize = require('./sequelize'); // Importamos la instancia de Sequelize
 const express = require('express');
 const cors = require('cors'); // Importa el middleware CORS
@@ -22,7 +23,7 @@ const progresoRoutes = require('./routes/progresoRoutes');
 
 // Montar las rutas en el enrutador principal
 app.use('/api/usuarios', usuarioRoutes);
-app.use('/api/rutinas', rutinaRoutes);
+app.use('/api/rutinas', rutinaRoutes); // Asegúrate de que esta línea esté presente
 app.use('/api/ejercicios', ejercicioRoutes);
 app.use('/api/informes', informeRoutes);
 app.use('/api/progresos', progresoRoutes);

@@ -27,9 +27,15 @@ exports.obtenerNombreRutina = async (req, res) => {
 // Crear una nueva rutina
 exports.crearRutina = async (req, res) => {
     try {
-        const rutina = await Rutina.create(req.body);
+        const { nombre, descripcion, id_usuario } = req.body;
+        console.log('Datos recibidos:', req.body); // Agrega esta línea para verificar los datos recibidos
+        if (!nombre || !descripcion || !id_usuario) {
+            return res.status(400).json({ error: 'Nombre, descripción e ID de usuario son obligatorios.' });
+        }
+        const rutina = await Rutina.create({ nombre, descripcion, id_usuario });
         res.status(201).json(rutina);
     } catch (error) {
+        console.error('Error al crear la rutina:', error); // Agrega esta línea para registrar el error
         res.status(500).json({ error: 'Error al crear la rutina' });
     }
 };
