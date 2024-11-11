@@ -7,11 +7,18 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre: DataTypes.STRING, 
-    descripcion: DataTypes.STRING,
-    id_usuario: { 
-      type: DataTypes.INTEGER, 
-      references: { model: 'usuarios', key: 'id_usuario' } 
-    }
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      references: { model: 'usuarios', key: 'id_usuario' },
+      allowNull: false,
+    },
   });
-}
+};

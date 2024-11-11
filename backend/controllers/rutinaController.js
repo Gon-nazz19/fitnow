@@ -1,5 +1,6 @@
 const { models } = require('../sequelize'); // Importamos los modelos desde sequelize/index.js
 const Rutina = models.rutina; // Obtenemos el modelo 'rutina'
+const Informe = models.informe; // Obtenemos el modelo 'informe'
 
 // Obtener todas las rutinas por ID de usuario
 exports.obtenerRutinasPorUsuario = async (req, res) => {
@@ -27,9 +28,26 @@ exports.obtenerNombreRutina = async (req, res) => {
 // Crear una nueva rutina
 exports.crearRutina = async (req, res) => {
     try {
-        const rutina = await Rutina.create(req.body);
+        const { name, description, id_usuario, exercises } = req.body;
+        console.log('Datos recibidos:', req.body); // Verifica los datos recibidos
+        if (!name || !description || !id_usuario) {
+            return res.status(400).json({ error: 'Nombre, descripción e ID de usuario son obligatorios.' });
+        }
+        const rutina = await Rutina.create({ nombre: name, descripcion: description, id_usuario });
+        
+        // Crear informes para cada ejercicio
+        for (const exercise of exercises) {
+            await Informe.create({
+                id_rutina: rutina.id_rutina,
+                id_ejercicio: exercise.id_ejercicio,
+                series: exercise.series,
+                repeticiones: exercise.repeticiones
+            });
+        }
+
         res.status(201).json(rutina);
     } catch (error) {
+        console.error('Error al crear la rutina:', error); // Registra el error
         res.status(500).json({ error: 'Error al crear la rutina' });
     }
 };

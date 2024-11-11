@@ -1,3 +1,4 @@
+// backend/sequelize/index.js
 const { Sequelize } = require('sequelize');
 const { applyExtraSetup } = require('./extra-setup');
 const sequelize = new Sequelize({
@@ -19,7 +20,7 @@ for (const modelDefiner of modelDefiners) {
 
 applyExtraSetup(sequelize);
 
-sequelize.sync({ force: false }) // Usa { force: false } para evitar eliminar y recrear las tablas
+sequelize.sync({ force: false }) // Usa { force: true } para eliminar y recrear las tablas
     .then(() => {
         console.log('Database & tables created!');
     })
