@@ -5,6 +5,7 @@ const Informe = models.informe; // Obtenemos el modelo 'informe'
 exports.obtenerInformesPorIdRutina = async (req, res) => {
     try {
         const idRutina = req.params.idRutina;
+        console.log(`Buscando informes para la rutina con ID: ${idRutina}`);
         const informes = await Informe.findAll({
             where: { id_rutina: idRutina }
         });
