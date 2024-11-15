@@ -4,22 +4,21 @@ const Informe = models.informe; // Obtenemos el modelo 'informe'
 // Obtener informes filtrando por rutina
 exports.obtenerInformesPorIdRutina = async (req, res) => {
     try {
-        const { idRutina } = req.params; // Extract idRutina from req.params
+        const idRutina = req.params.idRutina;
         const informes = await Informe.findAll({
-            where: { id_rutina: idRutina }, // Correctly handle the where clause
-            order: [['id_ejercicio', 'ASC']]
+            where: { id_rutina: idRutina }
         });
         
         if (!informes.length) {
-            return res.status(404).json({ error: 'No se encontró ningun informe especificado' });
+            return res.status(404).json({ error: 'No se encontraron informes para esta rutina' });
         }
 
-        res.status(200).json(informes); // Use status 200 for successful GET request
+        res.status(200).json(informes);
     } catch (error) {
+        console.error('Error al obtener los informes:', error);
         res.status(500).json({ error: 'Error al obtener los informes' });
     }
 };
-
 // Obtener un informe por id 
 exports.obtenerInformePorId = async (req, res) => {
     try {
