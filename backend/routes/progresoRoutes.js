@@ -6,6 +6,6 @@ const progresoController = require('../controllers/progresoController');
 router.post('/', progresoController.registrarProgreso);
 
 // Obtener datos de progreso para gráficos
-router.get('/grafico/:ejercicioId', progresoController.obtenerProgresoParaGrafico);
+router.get('/grafico/:informeId', progresoController.obtenerProgresoParaGrafico);
 
 module.exports = router;

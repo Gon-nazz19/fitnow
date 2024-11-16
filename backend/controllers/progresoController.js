@@ -14,20 +14,20 @@ exports.registrarProgreso = async (req, res) => {
 // Obtener el progreso de un ejercicio para gráficos
 exports.obtenerProgresoParaGrafico = async (req, res) => {
     try {
-        const informeId = req.params.informeId;
+        const { informeId } = req.params; // Make sure we're getting informeId from params
+        console.log('Buscando progresos para informe:', informeId); // Debug log
 
         const progresos = await Progreso.findAll({
             where: { id_informe: informeId },
-            order: [['fecha', 'ASC']], // Ordenar por fecha ascendente
-            attributes: ['fecha', 'peso'] // Seleccionar solo fecha y peso
+            order: [['fecha', 'ASC']],
+            attributes: ['fecha', 'peso']
         });
 
-        if (!progresos.length) {
-            return res.status(404).json({ error: 'No se encontró progreso para el ejercicio especificado' });
-        }
+        // Send empty array instead of 404 if no data found
+        res.status(200).json(progresos || []);
 
-        res.status(200).json(progresos);
     } catch (error) {
+        console.error('Error al obtener progresos:', error); // Debug log
         res.status(500).json({ error: 'Error al obtener el progreso para gráficos' });
     }
 };
